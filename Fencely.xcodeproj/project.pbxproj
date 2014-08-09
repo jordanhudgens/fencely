@@ -13,6 +13,8 @@
 		8419B6471993E35200087119 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8419B6451993E35200087119 /* Main.storyboard */; };
 		8419B6491993E35200087119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8419B6481993E35200087119 /* Images.xcassets */; };
 		8419B6551993E35200087119 /* FencelyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B6541993E35200087119 /* FencelyTests.swift */; };
+		84B7E05A1996D1BF00BE216E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B7E0591996D1BF00BE216E /* MapKit.framework */; };
+		84B7E05C1996D1C800BE216E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B7E05B1996D1C800BE216E /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		8419B64E1993E35200087119 /* FencelyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FencelyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8419B6531993E35200087119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8419B6541993E35200087119 /* FencelyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FencelyTests.swift; sourceTree = "<group>"; };
+		84B7E0591996D1BF00BE216E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		84B7E05B1996D1C800BE216E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84B7E05C1996D1C800BE216E /* CoreLocation.framework in Frameworks */,
+				84B7E05A1996D1BF00BE216E /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +65,8 @@
 		8419B6311993E35200087119 = {
 			isa = PBXGroup;
 			children = (
+				84B7E05B1996D1C800BE216E /* CoreLocation.framework */,
+				84B7E0591996D1BF00BE216E /* MapKit.framework */,
 				8419B63C1993E35200087119 /* Fencely */,
 				8419B6511993E35200087119 /* FencelyTests */,
 				8419B63B1993E35200087119 /* Products */,
@@ -399,6 +407,7 @@
 				8419B65A1993E35200087119 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8419B65B1993E35200087119 /* Build configuration list for PBXNativeTarget "FencelyTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +416,7 @@
 				8419B65D1993E35200087119 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

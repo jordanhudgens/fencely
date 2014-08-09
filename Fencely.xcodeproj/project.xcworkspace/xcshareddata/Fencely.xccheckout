@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A4FD906A-81B0-4B12-801A-FA0336C8829F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Fencely</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>21466F3ADFAC70302E35707873D964367D3E5A32</key>
+		<string>github.com:jordanhudgens/fencely.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Fencely.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>21466F3ADFAC70302E35707873D964367D3E5A32</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:jordanhudgens/fencely.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>21466F3ADFAC70302E35707873D964367D3E5A32</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>21466F3ADFAC70302E35707873D964367D3E5A32</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Fencely</string>
+		</dict>
+	</array>
+</dict>
+</plist>
