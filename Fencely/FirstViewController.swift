@@ -4,7 +4,7 @@
 //
 //  Created by Jordan Hudgens on 8/7/14.
 //  Copyright (c) 2014 Jordan Hudgens. All rights reserved.
-//
+//  appshocker.com/swift-programming-ios-101-part-4-mapkit-app-displaying-locations/
 
 import UIKit
 

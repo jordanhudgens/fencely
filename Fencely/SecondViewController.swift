@@ -25,6 +25,14 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         //Make this controller the delegate for the map view.
         self.mapView.delegate = self
         
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        mapView.showsUserLocation = true
+        
         println("Location is: \(location)")
         
     }
@@ -77,7 +85,28 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             
             println(coord.latitude)
             println(coord.longitude)
+            
+            mapView.setCenterCoordinate(coord, animated: true)
+            
+            var latDelta:CLLocationDegrees = 0.025
+            var longDelta:CLLocationDegrees = 0.025
+            
+            var theSpan:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
+            
+            var theRegion:MKCoordinateRegion = MKCoordinateRegionMake(coord, theSpan)
+            
+            mapView.setRegion(theRegion, animated: true)
+            
+            var initialAnnotation = MKPointAnnotation()
+            
+            initialAnnotation.coordinate = coord
+            initialAnnotation.title = "Ricky Panzer's House"
+            initialAnnotation.subtitle = "It is underground"
+            
+            
+            mapView.addAnnotation(initialAnnotation)
         }
+        
     }
     
     func locationManager(manager: CLLocationManager!,

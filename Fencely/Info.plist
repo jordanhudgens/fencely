@@ -38,6 +38,10 @@
 			<false/>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We won&apos;t share your location with the NSA</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We won&apos;t share your location with the NSA</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
