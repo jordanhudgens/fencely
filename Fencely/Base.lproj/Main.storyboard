@@ -63,6 +63,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="tUX-Tz-jdb">
                                 <rect key="frame" x="0.0" y="90" width="320" height="430"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8rJ-Kc-sve" id="tS2-Ws-Ram"/>
+                                </connections>
                             </mapView>
                             <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ej5-n5-O85">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -77,6 +80,9 @@
                                 <state key="normal" title="Coffee">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="buttonOnePressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="SPx-Z6-6PC"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Za-ka-d1a">
                                 <rect key="frame" x="83" y="52" width="83" height="30"/>
@@ -100,6 +106,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="second" id="cPa-gy-q4n"/>
                     <connections>
+                        <outlet property="buttonOne" destination="Ely-g8-PEW" id="HVf-NX-Bos"/>
                         <outlet property="mapView" destination="tUX-Tz-jdb" id="vnc-ve-kip"/>
                     </connections>
                 </viewController>

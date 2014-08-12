@@ -10,17 +10,19 @@ import UIKit
 import MapKit
 import CoreLocation
 
-// Integrate two Plist items: http://stackoverflow.com/questions/24252645/how-to-get-location-user-whith-cllocationmanager-in-swift
-
 class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     var location: CLLocation!
+    
+    let kGOOGLE_API_KEY: String! = "AIzaSyDDuvQIAy9b_17owR2TLciigjCEwwa64Sk"
+    let kBgQueue = "kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)"
+    
+    @IBOutlet var buttonOne: UIButton!
     
     @IBOutlet var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         //Make this controller the delegate for the map view.
         self.mapView.delegate = self
@@ -134,7 +136,41 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
             }
     }
 
-
+    // Start of the annotation's view
     
+    func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
+        var region: MKCoordinateRegion
+        region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate, 1000, 1000)
+        
+        mapView.setRegion(region, animated:true)
+    }
+    
+    // Google places query
+    
+    func queryGooglePlaces(googleType:String!) {
+        let url = NSURL(string: ("https://maps.googleapis.com/maps/api/place/search/json?location=\(currentCentre.latitude),\(currentCentre.longitude)&radius=\(currenDist)&types=\(googleType)&sensor=true&key=\(kGOOGLE_API_KEY)"))
+        
+        dispatch_async(kBgQueue) {
+            var err: NSError?
+            var data: NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+            self.performSelectorOnMainThread(fetchedData, withObject: data, waitUntilDone: true)
+        }
+    }
+    
+    func fetchedData(responseData:NSData) {
+        let jsonObject : AnyObject! = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        if let places = jsonObject as? NSArray{
+            if let aPlace = places[0] as? NSDictionary{
+                if let user = aPlace["user"] as? NSDictionary{
+                    
+                }
+            }
+        }
+    }
+    
+    @IBAction func buttonOnePressed(sender: UIButton) {
+        buttonOne.titleLabel.text = buttonOne.titleLabel.text.lowercaseString
+        
+    }
 }
 
