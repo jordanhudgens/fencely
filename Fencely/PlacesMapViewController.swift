@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Jordan Hudgens. All rights reserved.
 //
 
+// TODO: Refactor data call and management into data source class
+// Start iterating through data to display on screen
+
 import UIKit
 import MapKit
 import CoreLocation
@@ -37,6 +40,7 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         mapView.showsUserLocation = true
         
+                
         println("Location is: \(location)")
         
     }
@@ -98,6 +102,15 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             println(coord.latitude)
             println(coord.longitude)
             
+            if (currentCentre == nil){
+                currentCentre = coord
+                self.queryGooglePlaces("cafe")
+            }
+            
+            
+            
+            
+            
             mapView.setCenterCoordinate(coord, animated: true)
             
             var latDelta:CLLocationDegrees = 0.025
@@ -146,28 +159,33 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     
     // MARK: API query
-    let kGOOGLE_API_KEY: String! = "AIzaSyDDuvQIAy9b_17owR2TLciigjCEwwa64Sk"
+    
+    var currentCentre : CLLocationCoordinate2D!
+    var currenDist : Int!
+    
+    let kGOOGLE_API_KEY: String! = "AIzaSyAms5WELg7IHAGeU-X2AvqqRTjBjYG-tp0"
     let kBgQueue = "kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)"
     
     func queryGooglePlaces(googleType:String!) {
+        currenDist = 1000
         let url = NSURL(string: ("https://maps.googleapis.com/maps/api/place/search/json?location=\(currentCentre.latitude),\(currentCentre.longitude)&radius=\(currenDist)&types=\(googleType)&sensor=true&key=\(kGOOGLE_API_KEY)"))
         
-                dispatch_async(kBgQueue) {
-                    var err: NSError?
-                    var data: NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            var err: NSError?
+            var data: NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+            
+            dispatch_async(dispatch_get_main_queue(),{
+                self.fetchedData(data)
+            });
+        }
         
-                    self.performSelectorOnMainThread(fetchedData, withObject: data, waitUntilDone: true)
-                }
     }
     
     func fetchedData(responseData:NSData) {
         let jsonObject : AnyObject! = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        println(jsonObject)
         if let places = jsonObject as? NSArray{
-            if let aPlace = places[0] as? NSDictionary{
-                if let user = aPlace["user"] as? NSDictionary{
-                    
-                }
-            }
+            println(places)
         }
     }
     
