@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  PlacesMapViewController.swift
 //  Fencely
 //
 //  Created by Jordan Hudgens on 8/7/14.
@@ -10,12 +10,14 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
-    var location: CLLocation!
-    
-    let kGOOGLE_API_KEY: String! = "AIzaSyDDuvQIAy9b_17owR2TLciigjCEwwa64Sk"
-    let kBgQueue = "kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)"
+    // MARK: MKMapView
+    var window: UIWindow?
+    var locationManager: CLLocationManager!
+    var seenError : Bool = false
+    var locationFixAchieved : Bool = false
+    var locationStatus : NSString = "Not Started"
     
     @IBOutlet var buttonOne: UIButton!
     
@@ -44,38 +46,46 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         // Dispose of any resources that can be recreated.
     }
     
-    var window: UIWindow?
-    var locationManager: CLLocationManager!
-    var seenError : Bool = false
-    var locationFixAchieved : Bool = false
-    var locationStatus : NSString = "Not Started"
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         initLocationManager();
         return true
     }
+
     
-    // Location Manager helper stuff
-    func initLocationManager() {
-        seenError = false
-        locationFixAchieved = false
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    // MARK: Map methods
+    func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
+        var region: MKCoordinateRegion
+        region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate, 1000, 1000)
         
-        locationManager.requestAlwaysAuthorization()
+        mapView.setRegion(region, animated:true)
     }
     
-    // Location Manager Delegate stuff
+    // MARK: Location methods
+    var location: CLLocation!
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        locationManager.stopUpdatingLocation()
-        if ((error) != nil) {
-            if (seenError == false) {
-                seenError = true
-                print(error)
+    func locationManager(manager: CLLocationManager!,
+        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+            var shouldIAllow = false
+            
+            switch status {
+            case CLAuthorizationStatus.Restricted:
+                locationStatus = "Restricted Access to location"
+            case CLAuthorizationStatus.Denied:
+                locationStatus = "User denied access to location"
+            case CLAuthorizationStatus.NotDetermined:
+                locationStatus = "Status not determined"
+            default:
+                locationStatus = "Allowed to location Access"
+                shouldIAllow = true
             }
-        }
+            NSNotificationCenter.defaultCenter().postNotificationName("LabelHasbeenUpdated", object: nil)
+            if (shouldIAllow == true) {
+                NSLog("Location to Allowed")
+                // Start location services
+                locationManager.startUpdatingLocation()
+            } else {
+                NSLog("Denied access: \(locationStatus)")
+            }
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -111,50 +121,43 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         
     }
     
-    func locationManager(manager: CLLocationManager!,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-            var shouldIAllow = false
-            
-            switch status {
-            case CLAuthorizationStatus.Restricted:
-                locationStatus = "Restricted Access to location"
-            case CLAuthorizationStatus.Denied:
-                locationStatus = "User denied access to location"
-            case CLAuthorizationStatus.NotDetermined:
-                locationStatus = "Status not determined"
-            default:
-                locationStatus = "Allowed to location Access"
-                shouldIAllow = true
-            }
-            NSNotificationCenter.defaultCenter().postNotificationName("LabelHasbeenUpdated", object: nil)
-            if (shouldIAllow == true) {
-                NSLog("Location to Allowed")
-                // Start location services
-                locationManager.startUpdatingLocation()
-            } else {
-                NSLog("Denied access: \(locationStatus)")
-            }
-    }
-
-    // Start of the annotation's view
-    
-    func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
-        var region: MKCoordinateRegion
-        region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate, 1000, 1000)
+    // Location Manager helper stuff
+    func initLocationManager() {
+        seenError = false
+        locationFixAchieved = false
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
-        mapView.setRegion(region, animated:true)
+        locationManager.requestAlwaysAuthorization()
     }
     
-    // Google places query
+    // Location Manager Delegate stuff
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        locationManager.stopUpdatingLocation()
+        if ((error) != nil) {
+            if (seenError == false) {
+                seenError = true
+                print(error)
+            }
+        }
+    }
+    
+    
+    // MARK: API query
+    let kGOOGLE_API_KEY: String! = "AIzaSyDDuvQIAy9b_17owR2TLciigjCEwwa64Sk"
+    let kBgQueue = "kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)"
     
     func queryGooglePlaces(googleType:String!) {
         let url = NSURL(string: ("https://maps.googleapis.com/maps/api/place/search/json?location=\(currentCentre.latitude),\(currentCentre.longitude)&radius=\(currenDist)&types=\(googleType)&sensor=true&key=\(kGOOGLE_API_KEY)"))
         
-        dispatch_async(kBgQueue) {
-            var err: NSError?
-            var data: NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
-            self.performSelectorOnMainThread(fetchedData, withObject: data, waitUntilDone: true)
-        }
+                dispatch_async(kBgQueue) {
+                    var err: NSError?
+                    var data: NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
+        
+                    self.performSelectorOnMainThread(fetchedData, withObject: data, waitUntilDone: true)
+                }
     }
     
     func fetchedData(responseData:NSData) {
@@ -168,9 +171,11 @@ class SecondViewController: UIViewController, MKMapViewDelegate, CLLocationManag
         }
     }
     
+    // MARK: Actions
     @IBAction func buttonOnePressed(sender: UIButton) {
         buttonOne.titleLabel.text = buttonOne.titleLabel.text.lowercaseString
         
     }
+    
 }
 

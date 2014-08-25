@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8419B6401993E35200087119 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B63F1993E35200087119 /* AppDelegate.swift */; };
-		8419B6421993E35200087119 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B6411993E35200087119 /* FirstViewController.swift */; };
-		8419B6441993E35200087119 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B6431993E35200087119 /* SecondViewController.swift */; };
+		8419B6421993E35200087119 /* PlacesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B6411993E35200087119 /* PlacesListViewController.swift */; };
+		8419B6441993E35200087119 /* PlacesMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B6431993E35200087119 /* PlacesMapViewController.swift */; };
 		8419B6471993E35200087119 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8419B6451993E35200087119 /* Main.storyboard */; };
 		8419B6491993E35200087119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8419B6481993E35200087119 /* Images.xcassets */; };
 		8419B6551993E35200087119 /* FencelyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B6541993E35200087119 /* FencelyTests.swift */; };
@@ -31,8 +31,8 @@
 		8419B63A1993E35200087119 /* Fencely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fencely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8419B63E1993E35200087119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8419B63F1993E35200087119 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8419B6411993E35200087119 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		8419B6431993E35200087119 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		8419B6411993E35200087119 /* PlacesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListViewController.swift; sourceTree = "<group>"; };
+		8419B6431993E35200087119 /* PlacesMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesMapViewController.swift; sourceTree = "<group>"; };
 		8419B6461993E35200087119 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8419B6481993E35200087119 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8419B64E1993E35200087119 /* FencelyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FencelyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,8 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				8419B63F1993E35200087119 /* AppDelegate.swift */,
-				8419B6411993E35200087119 /* FirstViewController.swift */,
-				8419B6431993E35200087119 /* SecondViewController.swift */,
+				8419B6411993E35200087119 /* PlacesListViewController.swift */,
+				8419B6431993E35200087119 /* PlacesMapViewController.swift */,
 				8419B6451993E35200087119 /* Main.storyboard */,
 				8419B6481993E35200087119 /* Images.xcassets */,
 				8419B63D1993E35200087119 /* Supporting Files */,
@@ -219,9 +219,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8419B6441993E35200087119 /* SecondViewController.swift in Sources */,
+				8419B6441993E35200087119 /* PlacesMapViewController.swift in Sources */,
 				8419B6401993E35200087119 /* AppDelegate.swift in Sources */,
-				8419B6421993E35200087119 /* FirstViewController.swift in Sources */,
+				8419B6421993E35200087119 /* PlacesListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  PlacesListViewController.swift
 //  Fencely
 //
 //  Created by Jordan Hudgens on 8/7/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PlacesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             
     @IBOutlet var tableView: UITableView!
     var items: [String] = ["Jordan", "David", "Hudgens"]
