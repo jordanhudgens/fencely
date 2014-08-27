@@ -6,12 +6,9 @@
 //  Copyright (c) 2014 Jordan Hudgens. All rights reserved.
 //
 
-// TODO: Refactor data call and management into data source class
-// Start iterating through data to display on screen
 
 import UIKit
 import MapKit
-import CoreLocation
 
 class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -21,8 +18,10 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     var seenError : Bool = false
     var locationFixAchieved : Bool = false
     var locationStatus : NSString = "Not Started"
+    var currentCentre : CLLocationCoordinate2D!
     
     @IBOutlet var buttonOne: UIButton!
+
     
     @IBOutlet var mapView: MKMapView!
     
@@ -102,9 +101,13 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             println(coord.latitude)
             println(coord.longitude)
             
+            
+            
+            var finder = PlacesDataSource()
+            
             if (currentCentre == nil){
                 currentCentre = coord
-                self.queryGooglePlaces("cafe")
+                finder.queryGooglePlaces("cafe", currentCentre: currentCentre)
             }
             
             
@@ -158,40 +161,18 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     
-    // MARK: API query
-    
-    var currentCentre : CLLocationCoordinate2D!
-    var currenDist : Int!
-    
-    let kGOOGLE_API_KEY: String! = "AIzaSyAms5WELg7IHAGeU-X2AvqqRTjBjYG-tp0"
-    let kBgQueue = "kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)"
-    
-    func queryGooglePlaces(googleType:String!) {
-        currenDist = 1000
-        let url = NSURL(string: ("https://maps.googleapis.com/maps/api/place/search/json?location=\(currentCentre.latitude),\(currentCentre.longitude)&radius=\(currenDist)&types=\(googleType)&sensor=true&key=\(kGOOGLE_API_KEY)"))
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            var err: NSError?
-            var data: NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
-            
-            dispatch_async(dispatch_get_main_queue(),{
-                self.fetchedData(data)
-            });
-        }
-        
-    }
-    
-    func fetchedData(responseData:NSData) {
-        let jsonObject : AnyObject! = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-        println(jsonObject)
-        if let places = jsonObject as? NSArray{
-            println(places)
-        }
-    }
+
     
     // MARK: Actions
     @IBAction func buttonOnePressed(sender: UIButton) {
         buttonOne.titleLabel.text = buttonOne.titleLabel.text.lowercaseString
+        var finder = PlacesDataSource()
+        
+        if (currentCentre == nil){
+            currentCentre = coord
+            finder.queryGooglePlaces(buttonOne.titleLabel.text, )
+        }
+        
         
     }
     

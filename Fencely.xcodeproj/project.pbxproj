@@ -13,6 +13,7 @@
 		8419B6471993E35200087119 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8419B6451993E35200087119 /* Main.storyboard */; };
 		8419B6491993E35200087119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8419B6481993E35200087119 /* Images.xcassets */; };
 		8419B6551993E35200087119 /* FencelyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B6541993E35200087119 /* FencelyTests.swift */; };
+		849F76DD19AE5FBE00FF673F /* PlacesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F76DC19AE5FBE00FF673F /* PlacesDataSource.swift */; };
 		84B7E05A1996D1BF00BE216E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B7E0591996D1BF00BE216E /* MapKit.framework */; };
 		84B7E05C1996D1C800BE216E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B7E05B1996D1C800BE216E /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		8419B64E1993E35200087119 /* FencelyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FencelyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8419B6531993E35200087119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8419B6541993E35200087119 /* FencelyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FencelyTests.swift; sourceTree = "<group>"; };
+		849F76DC19AE5FBE00FF673F /* PlacesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesDataSource.swift; sourceTree = "<group>"; };
 		84B7E0591996D1BF00BE216E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		84B7E05B1996D1C800BE216E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -91,6 +93,7 @@
 				8419B6451993E35200087119 /* Main.storyboard */,
 				8419B6481993E35200087119 /* Images.xcassets */,
 				8419B63D1993E35200087119 /* Supporting Files */,
+				849F76DC19AE5FBE00FF673F /* PlacesDataSource.swift */,
 			);
 			path = Fencely;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849F76DD19AE5FBE00FF673F /* PlacesDataSource.swift in Sources */,
 				8419B6441993E35200087119 /* PlacesMapViewController.swift in Sources */,
 				8419B6401993E35200087119 /* AppDelegate.swift in Sources */,
 				8419B6421993E35200087119 /* PlacesListViewController.swift in Sources */,

@@ -77,7 +77,7 @@
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ely-g8-PEW">
                                 <rect key="frame" x="16" y="52" width="45" height="30"/>
-                                <state key="normal" title="Coffee">
+                                <state key="normal" title="Bar">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -91,8 +91,8 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufg-Eo-Zzq">
-                                <rect key="frame" x="193" y="52" width="32" height="30"/>
-                                <state key="normal" title="Bars">
+                                <rect key="frame" x="193" y="52" width="45" height="30"/>
+                                <state key="normal" title="Coffee">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
