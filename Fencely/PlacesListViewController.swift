@@ -17,7 +17,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var performQuery = PlacesDataSource()
     
-    var tableData : AnyObject!
+    var tableData = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +116,8 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             if (currentCentre == nil){
                 currentCentre = coord
-//                performQuery.queryGooglePlaces("cafe", currentCentre: currentCentre)
+                tableData = performQuery.queryGooglePlaces("cafe", currentCentre: currentCentre)
+                println(tableData)
             }
             
             

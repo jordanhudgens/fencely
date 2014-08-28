@@ -35,6 +35,7 @@ class PlacesDataSource: NSObject {
     
     func fetchedData(responseData:NSData) {
         let jsonObject : AnyObject! = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.MutableContainers, error: nil)
+//        println(jsonObject)
         if let places = jsonObject as? NSArray{
             println(places)
         }
