@@ -100,19 +100,13 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             
             println(coord.latitude)
             println(coord.longitude)
-            
-            
-            
+
             var finder = PlacesDataSource()
             
             if (currentCentre == nil){
                 currentCentre = coord
                 finder.queryGooglePlaces("cafe", currentCentre: currentCentre)
             }
-            
-            
-            
-            
             
             mapView.setCenterCoordinate(coord, animated: true)
             
@@ -168,12 +162,15 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         buttonOne.titleLabel.text = buttonOne.titleLabel.text.lowercaseString
         var finder = PlacesDataSource()
         
-        if (currentCentre == nil){
-            currentCentre = coord
-            finder.queryGooglePlaces(buttonOne.titleLabel.text, )
+        if (currentCentre != nil){
+            finder.queryGooglePlaces(buttonOne.titleLabel.text, currentCentre: currentCentre)
+        } else {
+            let alert = UIAlertView()
+            alert.title = "Location Error"
+            alert.message = "We couldn't find your location"
+            alert.addButtonWithTitle("Close")
+            alert.show()
         }
-        
-        
     }
     
 }
