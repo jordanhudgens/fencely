@@ -116,7 +116,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             if (currentCentre == nil){
                 currentCentre = coord
-                tableData = performQuery.queryGooglePlaces("cafe", currentCentre: currentCentre)
+                performQuery.queryGooglePlaces("cafe", currentCentre: currentCentre)
                 println(tableData)
             }
             
@@ -135,6 +135,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         locationManager.requestAlwaysAuthorization()
+
     }
     
     // Location Manager Delegate stuff
