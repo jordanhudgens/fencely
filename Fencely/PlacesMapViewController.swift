@@ -34,7 +34,11 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        
+        if ((UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8.0){
+            locationManager.requestAlwaysAuthorization()
+        }
+        
         locationManager.startUpdatingLocation()
         
         mapView.showsUserLocation = true
