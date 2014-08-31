@@ -33,12 +33,15 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         locationManager.startUpdatingLocation()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
+        
         
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
@@ -47,23 +50,11 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
+        var rowData: NSDictionary = self.tableData[indexPath.row] as NSDictionary
+        
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         
-        let rowData: NSDictionary = self.tableData[indexPath.row] as NSDictionary
-        
         cell.textLabel.text = rowData["name"] as String
-        
-        // Grab the artworkUrl60 key to get an image URL for the app's thumbnail
-        //        let imgURL: NSURL = NSURL(string: urlString)
-        
-        // Download an NSData representation of the image at the URL
-        //        let imgData: NSData = NSData(contentsOfURL: imgURL)
-        //        cell.imageView.image = UIImage(data: imgData)
-        
-        // Get the formatted price string for display in the subtitle
-        let adress: NSString = rowData["vicinity"] as NSString
-        
-        cell.detailTextLabel.text = adress
         
         return cell
     }
@@ -120,10 +111,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
             if (currentCentre == nil){
                 currentCentre = coord
                 performQuery.queryGooglePlaces("cafe", currentCentre: currentCentre)
-                println(tableData)
             }
-            
-            
             
         }
         
@@ -155,4 +143,5 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
 }
+
 
