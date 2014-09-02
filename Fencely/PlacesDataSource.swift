@@ -9,9 +9,17 @@
 import Foundation
 import CoreLocation
 
+
 class PlacesDataSource: NSObject {
     
-    // MARK: API query
+    class var sharedInstance : PlacesDataSource {
+        struct Static {
+            static let instance : PlacesDataSource = PlacesDataSource()
+        }
+        return Static.instance
+    }
+    
+    // MARK: API call
     
     var currenDist : Int!
     
@@ -20,50 +28,63 @@ class PlacesDataSource: NSObject {
     
     func queryGooglePlaces(googleType:String!, currentCentre : CLLocationCoordinate2D!) {
         
-//        let manager = AFHTTPRequestOperationManager()
-//        
-//        var parameters = ["types": googleType,
-//                            "location": "\(currentCentre.latitude),\(currentCentre.longitude)",
-//                            "rankby": "distance",
-//                            "sensor": "true",
-//                            "key":kGOOGLE_API_KEY]
-//            
-//        manager.GET(
-//            "https://maps.googleapis.com/maps/api/place/search/json",
-//            parameters: parameters,
-//            success: { (operation: AFHTTPRequestOperation!,
-//                responseObject: AnyObject!) in
-//                println("JSON: " + responseObject.description)
-//                self.fetchedData(responseObject as NSData)
-//            },
-//            failure: { (operation: AFHTTPRequestOperation!,
-//                error: NSError!) in
-//                println("Error: " + error.localizedDescription)
-//        })
-        
-        currenDist = 5000
-        let url = NSURL(string: ("https://maps.googleapis.com/maps/api/place/search/json?types=\(googleType)&location=\(currentCentre.latitude),\(currentCentre.longitude)&rankby=distance&sensor=true&key=\(kGOOGLE_API_KEY)"))
+        let manager = AFHTTPRequestOperationManager()
 
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            var err: NSError?
-            var data: NSData = NSData.dataWithContentsOfURL(url,options: NSDataReadingOptions.DataReadingMappedIfSafe, error: &err)
-            
-            dispatch_async(dispatch_get_main_queue(),{
-                self.fetchedData(data)
-            });
-        }
+        var parameters = ["types": googleType,
+                            "location": "\(currentCentre.latitude),\(currentCentre.longitude)",
+                            "rankby": "distance",
+                            "sensor": "true",
+                            "key":kGOOGLE_API_KEY]
+        
+        manager.responseSerializer = AFJSONResponseSerializer()
+        manager.GET("https://maps.googleapis.com/maps/api/place/search/json",
+            parameters: parameters,
+            success: { (operation: AFHTTPRequestOperation!,
+                responseObject: AnyObject!) in
+                println("JSON: " + responseObject.description)
+                self.fetchedData(responseObject as NSDictionary)
+            },
+            failure: { (operation: AFHTTPRequestOperation!,
+                error: NSError!) in
+                println("Error: " + error.localizedDescription)
+        })
     
     }
     
-    func fetchedData(responseData:NSData) {
-        let jsonObject : AnyObject! = NSJSONSerialization.JSONObjectWithData(responseData, options: NSJSONReadingOptions.MutableContainers, error: nil)
-        println(jsonObject)
-        if let places = jsonObject as? NSArray{
-            println(places)
-        }
+    func fetchedData(responseData:NSDictionary) {
+        println(responseData)
     }
     
+    // MARK: KVO methods
+    var places : NSMutableArray!
     
+    func countOfPlaces() -> Int {
+        return self.places.count
+    }
     
+    func objectInPlacesAtIndex(index:Int) -> AnyObject {
+        return self.places.objectAtIndex(index)
+    }
+    
+    func placesAtIndexes(indexes: NSIndexSet) -> NSArray {
+        return self.places.objectsAtIndexes(indexes)
+    }
+    
+    func insertObjectinPlacesAtIndex(object: PlacesDataSource, index: Int) {
+        places.insertObject(object, atIndex: index)
+    }
+    
+    func removeObjectFromPlacesAtIndex(index: Int) {
+        places.removeObjectAtIndex(index)
+    }
+    
+    func replaceObjectInPlacesAtIndexWithObject(index: Int, object: AnyObject) {
+        places.replaceObjectAtIndex(index, withObject: object)
+    }
+    
+    func deletePlace(place: PlacesDataSource) {
+        var mutableArrayWithKVO = self.mutableArrayValueForKey("places")
+        mutableArrayWithKVO.removeObject(place)
+    }
 
 }

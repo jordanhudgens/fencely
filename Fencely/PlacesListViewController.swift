@@ -21,7 +21,12 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
+        PlacesDataSource.sharedInstance.addObserver(self, forKeyPath:"places", options: nil, context: nil)
+//        [[BLCDataSource sharedInstance] addObserver:self forKeyPath:@"mediaItems" options:0 context:nil];
+        
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         locationManager = CLLocationManager()
@@ -45,6 +50,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+        println("number of rows \(tableData.count)")
         return tableData.count
     }
     
