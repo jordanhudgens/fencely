@@ -148,6 +148,43 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
+    // MARK: KVO methods go here
+    
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<Void>) {
+        if (object == PlacesDataSource.sharedInstance && keyPath == isEqual("places")) {
+            var kindOfChange: Int = change[NSKeyValueChangeKindKey.integerValue]
+            
+            if (kindOfChange == NSKeyValueChangeSetting) {
+                self.tableView.reloadData()
+            } else if (kindOfChange == NSKeyValueChangeInsertion || kindOfChange == NSKeyValueChangeRemoval || kindOfChange == NSKeyValueChangeReplacement) {
+                var indexSetOfChanges : NSIndexSet = change[NSKeyValueChangeIndexesKey]
+                var indexPathsThatChanged : NSMutableArray?
+                
+                indexSetOfChanges.enumerateIndexesUsingBlock(idx: Int, stop: Bool) {
+                    // Not sure of syntax on the line below
+                    var newIndexPath : NSIndexPath = indexPathForRow(idx)inSection(0)
+                    indexPathsThatChanged?.addObject(newIndexPath)
+                    
+                    self.tableView.beginUpdates()
+                    
+                    if (kindOfChange == NSKeyValueChangeInsertion) {
+                        self.tableView.insertRowsAtIndexPaths(indexPathsThatChanged, withRowAnimation: UITableViewRowAnimationAutomatic)
+                    } else if (kindOfChange == NSKeyValueChangeRemoval) {
+                        self.tableView.deleteRowsAtIndexPaths(indexPathsThatChanged, withRowAnimation: UITableViewRowAnimationAutomatic)
+                    } else if (kindOfChange == NSKeyValueChangeReplacement) {
+                        self.tableView.reloadRowsAtIndexPaths(indexPathsThatChanged, withRowAnimation: UITableViewRowAnimationAutomatic)
+                    }
+                    
+                    self.tableView.endUpdates()
+                }
+                
+                if (PlacesDataSource.sharedInstance.places != nil && PlacesDataSource.sharedInstance.places.count > 0) {
+                    self.refreshControl.endRefreshing
+                }
+            }
+        }
+    }
+    
 }
 
 
