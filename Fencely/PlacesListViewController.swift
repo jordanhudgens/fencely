@@ -15,12 +15,16 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var currentCentre : CLLocationCoordinate2D!
     
-    var performQuery = PlacesDataSource()
+//    var performQuery = PlacesDataSource()
     
     var tableData = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Explanation on notification center: http://stackoverflow.com/questions/24049020/nsnotificationcenter-addobserver-in-swift
+        // Selector explanation: http://www.learnswift.io/blog/2014/6/11/using-nsnotificationcenter-in-swift
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "venuesUpdated:", name: "venues", object: nil)
         
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -45,18 +49,22 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    func venuesUpdated(sender : AnyObject) {
+        self.tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        println("number of rows \(tableData.count)")
-        return tableData.count
+        println("number of rows \(PlacesDataSource.sharedInstance.places.count)")
+        return PlacesDataSource.sharedInstance.places.count
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
-        var rowData: NSDictionary = self.tableData[indexPath.row] as NSDictionary
+        var rowData: NSDictionary = PlacesDataSource.sharedInstance.places[indexPath.row] as NSDictionary
         
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         
@@ -116,7 +124,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
             
             if (currentCentre == nil){
                 currentCentre = coord
-                performQuery.queryGooglePlaces("cafe", currentCentre: currentCentre)
+                PlacesDataSource.sharedInstance.queryGooglePlaces("cafe", currentCentre: currentCentre)
             }
             
         }
@@ -146,44 +154,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-    
-    
-    // MARK: KVO methods go here
-    
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<Void>) {
-        if (object == PlacesDataSource.sharedInstance && keyPath == isEqual("places")) {
-            var kindOfChange: Int = change[NSKeyValueChangeKindKey.integerValue]
-            
-            if (kindOfChange == NSKeyValueChangeSetting) {
-                self.tableView.reloadData()
-            } else if (kindOfChange == NSKeyValueChangeInsertion || kindOfChange == NSKeyValueChangeRemoval || kindOfChange == NSKeyValueChangeReplacement) {
-                var indexSetOfChanges : NSIndexSet = change[NSKeyValueChangeIndexesKey]
-                var indexPathsThatChanged : NSMutableArray?
-                
-                indexSetOfChanges.enumerateIndexesUsingBlock(idx: Int, stop: Bool) {
-                    // Not sure of syntax on the line below
-                    var newIndexPath : NSIndexPath = indexPathForRow(idx)inSection(0)
-                    indexPathsThatChanged?.addObject(newIndexPath)
-                    
-                    self.tableView.beginUpdates()
-                    
-                    if (kindOfChange == NSKeyValueChangeInsertion) {
-                        self.tableView.insertRowsAtIndexPaths(indexPathsThatChanged, withRowAnimation: UITableViewRowAnimationAutomatic)
-                    } else if (kindOfChange == NSKeyValueChangeRemoval) {
-                        self.tableView.deleteRowsAtIndexPaths(indexPathsThatChanged, withRowAnimation: UITableViewRowAnimationAutomatic)
-                    } else if (kindOfChange == NSKeyValueChangeReplacement) {
-                        self.tableView.reloadRowsAtIndexPaths(indexPathsThatChanged, withRowAnimation: UITableViewRowAnimationAutomatic)
-                    }
-                    
-                    self.tableView.endUpdates()
-                }
-                
-                if (PlacesDataSource.sharedInstance.places != nil && PlacesDataSource.sharedInstance.places.count > 0) {
-                    self.refreshControl.endRefreshing
-                }
-            }
-        }
-    }
+
     
 }
 

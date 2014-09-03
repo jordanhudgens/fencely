@@ -22,6 +22,7 @@ class PlacesDataSource: NSObject {
     // MARK: API call
     
     var currenDist : Int!
+    var places: NSMutableArray = NSMutableArray()
     
     let kGOOGLE_API_KEY: String! = "AIzaSyAms5WELg7IHAGeU-X2AvqqRTjBjYG-tp0"
     let kBgQueue = "kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)"
@@ -53,38 +54,11 @@ class PlacesDataSource: NSObject {
     
     func fetchedData(responseData:NSDictionary) {
         println(responseData)
+        
+        self.places = responseData["results"] as NSMutableArray
+        
+        NSNotificationCenter.defaultCenter().postNotificationName("venues", object: nil)
     }
-    
-    // MARK: KVO methods
-    var places : NSMutableArray!
-    
-    func countOfPlaces() -> Int {
-        return self.places.count
-    }
-    
-    func objectInPlacesAtIndex(index:Int) -> AnyObject {
-        return self.places.objectAtIndex(index)
-    }
-    
-    func placesAtIndexes(indexes: NSIndexSet) -> NSArray {
-        return self.places.objectsAtIndexes(indexes)
-    }
-    
-    func insertObjectinPlacesAtIndex(object: PlacesDataSource, index: Int) {
-        places.insertObject(object, atIndex: index)
-    }
-    
-    func removeObjectFromPlacesAtIndex(index: Int) {
-        places.removeObjectAtIndex(index)
-    }
-    
-    func replaceObjectInPlacesAtIndexWithObject(index: Int, object: AnyObject) {
-        places.replaceObjectAtIndex(index, withObject: object)
-    }
-    
-    func deletePlace(place: PlacesDataSource) {
-        var mutableArrayWithKVO = self.mutableArrayValueForKey("places")
-        mutableArrayWithKVO.removeObject(place)
-    }
+ 
 
 }
