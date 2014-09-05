@@ -69,6 +69,10 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         
         cell.textLabel.text = rowData["name"] as String
+        cell.detailTextLabel.text = rowData["vicinity"] as String
+        cell.detailTextLabel.textColor = UIColor.brownColor()
+        
+        
         
         return cell
     }
@@ -154,7 +158,25 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
+    
+    var queryFromButton: String?
+    
+    @IBAction func cafeButtonPressed(sender: UIBarButtonItem) {
+        PlacesDataSource.sharedInstance.queryGooglePlaces("cafe", currentCentre: currentCentre)
+    }
+    
 
+    @IBAction func restaurantButtonPressed(sender: UIBarButtonItem) {
+        PlacesDataSource.sharedInstance.queryGooglePlaces("restaurant", currentCentre: currentCentre)
+    }
+    
+    @IBAction func barsButtonPressed(sender: UIBarButtonItem) {
+        PlacesDataSource.sharedInstance.queryGooglePlaces("bar", currentCentre: currentCentre)
+    }
+    
+    @IBAction func atmButtonPressed(sender: UIBarButtonItem) {
+        PlacesDataSource.sharedInstance.queryGooglePlaces("atm", currentCentre: currentCentre)
+    }
     
 }
 
