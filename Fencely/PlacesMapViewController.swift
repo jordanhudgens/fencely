@@ -128,7 +128,7 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-//        if (locationFixAchieved == false) {
+        if (locationFixAchieved == false) {
             locationFixAchieved = true
             var locationArray = locations as NSArray
             var locationObj = locationArray.lastObject as CLLocation
@@ -158,12 +158,10 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             var initialAnnotation = MKPointAnnotation()
             
             initialAnnotation.coordinate = coord
-            initialAnnotation.title = "Ricky Panzer's House"
-            initialAnnotation.subtitle = "It is underground"
-            
+            initialAnnotation.title = "Current Location"
             
             mapView.addAnnotation(initialAnnotation)
-//        }
+        }
         
     }
     

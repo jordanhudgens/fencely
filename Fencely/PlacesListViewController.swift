@@ -23,8 +23,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         // Explanation on notification center: http://stackoverflow.com/questions/24049020/nsnotificationcenter-addobserver-in-swift
         // Selector explanation: http://www.learnswift.io/blog/2014/6/11/using-nsnotificationcenter-in-swift
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "venuesUpdated:", name: "venues", object: nil)
-        
-        
+
         // Do any additional setup after loading the view, typically from a nib.
         //PlacesDataSource.sharedInstance.addObserver(self, forKeyPath:"places", options: nil, context: nil)
         
@@ -42,8 +41,6 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
-        
-        
     }
     
     func venuesUpdated(sender : AnyObject) {
@@ -68,14 +65,14 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.textLabel?.text = rowData.name as String
         cell.detailTextLabel?.text = rowData.address as String
         cell.detailTextLabel?.textColor = UIColor.brownColor()
-        
-        
-        
+
         return cell
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        println("You selected cell #\(indexPath.row)!")
+        var rowData: Place = PlacesDataSource.sharedInstance.places[indexPath.row] as Place
+        println(rowData.address)
+        
     }
     
     // MARK: Location methods
