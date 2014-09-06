@@ -55,7 +55,19 @@ class PlacesDataSource: NSObject {
     func fetchedData(responseData:NSDictionary) {
         println(responseData)
         
-        self.places = responseData["results"] as NSMutableArray
+        var placesArray : NSMutableArray = responseData["results"] as NSMutableArray
+        
+        
+        
+        for placeDictionary in placesArray {
+            var place = Place()
+            place.name = placeDictionary["name"] as String
+            place.address = placeDictionary["vicinity"] as String
+            place.latitude = ((placeDictionary["geometry"] as NSDictionary)["location"] as NSDictionary)["lat"] as CLLocationDegrees
+            place.longitude = ((placeDictionary["geometry"] as NSDictionary)["location"] as NSDictionary)["lng"] as CLLocationDegrees
+            places.addObject(place)
+        }
+        
         
         NSNotificationCenter.defaultCenter().postNotificationName("venues", object: nil)
     }

@@ -15,8 +15,6 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var currentCentre : CLLocationCoordinate2D!
     
-//    var performQuery = PlacesDataSource()
-    
     var tableData = []
     
     override func viewDidLoad() {
@@ -28,8 +26,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         
         // Do any additional setup after loading the view, typically from a nib.
-        PlacesDataSource.sharedInstance.addObserver(self, forKeyPath:"places", options: nil, context: nil)
-//        [[BLCDataSource sharedInstance] addObserver:self forKeyPath:@"mediaItems" options:0 context:nil];
+        //PlacesDataSource.sharedInstance.addObserver(self, forKeyPath:"places", options: nil, context: nil)
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
@@ -57,20 +54,20 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         super.didReceiveMemoryWarning()
     }
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         println("number of rows \(PlacesDataSource.sharedInstance.places.count)")
         return PlacesDataSource.sharedInstance.places.count
     }
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var rowData: NSDictionary = PlacesDataSource.sharedInstance.places[indexPath.row] as NSDictionary
+        var rowData: Place = PlacesDataSource.sharedInstance.places[indexPath.row] as Place
         
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         
-        cell.textLabel.text = rowData["name"] as String
-        cell.detailTextLabel.text = rowData["vicinity"] as String
-        cell.detailTextLabel.textColor = UIColor.brownColor()
+        cell.textLabel?.text = rowData.name as String
+        cell.detailTextLabel?.text = rowData.address as String
+        cell.detailTextLabel?.textColor = UIColor.brownColor()
         
         
         

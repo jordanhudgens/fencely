@@ -28,6 +28,14 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Explanation on notification center: http://stackoverflow.com/questions/24049020/nsnotificationcenter-addobserver-in-swift
+        // Selector explanation: http://www.learnswift.io/blog/2014/6/11/using-nsnotificationcenter-in-swift
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "venuesUpdated:", name: "venues", object: nil)
+        
+        
+        // Do any additional setup after loading the view, typically from a nib.
+        PlacesDataSource.sharedInstance.addObserver(self, forKeyPath:"places", options: nil, context: nil)
+        
         //Make this controller the delegate for the map view.
         self.mapView.delegate = self
         
@@ -45,6 +53,30 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
                 
         println("Location is: \(location)")
+        
+    }
+    
+    func venuesUpdated(sender : NSMutableDictionary) {
+        for place in PlacesDataSource.sharedInstance.places {
+            
+            var tempPlace : Place = place as Place
+            var latitude = tempPlace.latitude
+            var longitude = tempPlace.longitude
+            var name = tempPlace.name
+            
+            var address = tempPlace.address
+            var myHome:CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+            
+            var initialAnnotation = MKPointAnnotation()
+            
+            
+            initialAnnotation.coordinate = myHome
+            initialAnnotation.title = name
+            initialAnnotation.subtitle = address
+            
+            
+            mapView.addAnnotation(initialAnnotation)
+        }
         
     }
 
@@ -163,11 +195,11 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     // MARK: Actions
     @IBAction func buttonOnePressed(sender: UIButton) {
-        buttonOne.titleLabel.text = buttonOne.titleLabel.text.lowercaseString
+        buttonOne.titleLabel?.text = buttonOne.titleLabel?.text
         var finder = PlacesDataSource()
         
         if (currentCentre != nil){
-            finder.queryGooglePlaces(buttonOne.titleLabel.text, currentCentre: currentCentre)
+            finder.queryGooglePlaces(buttonOne.titleLabel?.text, currentCentre: currentCentre)
         } else {
             let alert = UIAlertView()
             alert.title = "Location Error"

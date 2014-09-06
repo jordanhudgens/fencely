@@ -17,6 +17,7 @@
 		849F76DD19AE5FBE00FF673F /* PlacesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F76DC19AE5FBE00FF673F /* PlacesDataSource.swift */; };
 		84B7E05A1996D1BF00BE216E /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B7E0591996D1BF00BE216E /* MapKit.framework */; };
 		84B7E05C1996D1C800BE216E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B7E05B1996D1C800BE216E /* CoreLocation.framework */; };
+		84F30F6119BA5424008A38A8 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F30F6019BA5424008A38A8 /* Place.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		84B7E0591996D1BF00BE216E /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		84B7E05B1996D1C800BE216E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84E9EBC019AFAA3600C97BEC /* Fencely-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fencely-Bridging-Header.h"; sourceTree = "<group>"; };
+		84F30F6019BA5424008A38A8 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		AC6A7632071C4DC388189918 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -102,6 +104,7 @@
 				8419B63D1993E35200087119 /* Supporting Files */,
 				849F76DC19AE5FBE00FF673F /* PlacesDataSource.swift */,
 				84E9EBC019AFAA3600C97BEC /* Fencely-Bridging-Header.h */,
+				84F30F6019BA5424008A38A8 /* Place.swift */,
 			);
 			path = Fencely;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				8419B6441993E35200087119 /* PlacesMapViewController.swift in Sources */,
 				8419B6401993E35200087119 /* AppDelegate.swift in Sources */,
 				8419B6421993E35200087119 /* PlacesListViewController.swift in Sources */,
+				84F30F6119BA5424008A38A8 /* Place.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
