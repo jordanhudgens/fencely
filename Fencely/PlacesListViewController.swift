@@ -13,8 +13,6 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet var tableView: UITableView!
     
-    var currentCentre : CLLocationCoordinate2D!
-    
     var tableData = []
     
     override func viewDidLoad() {
@@ -29,14 +27,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        if ((UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8.0){
-            locationManager.requestAlwaysAuthorization()
-        }
-        locationManager.startUpdatingLocation()
+        LocationManager.sharedInstance
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -71,105 +62,34 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         var rowData: Place = PlacesDataSource.sharedInstance.places[indexPath.row] as Place
-        println(rowData.address)
+        
+        var spacelessString : NSString = rowData.address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        
+        var mapUrl : NSString = "http://maps.apple.com/maps?daddr=\(spacelessString)"
+        
+        var url : NSURL = NSURL(string: mapUrl)
+        
+        UIApplication.sharedApplication().openURL(url)
         
     }
-    
-    // MARK: Location methods
-    
-    var window: UIWindow?
-    var locationManager: CLLocationManager!
-    var seenError : Bool = false
-    var locationFixAchieved : Bool = false
-    var locationStatus : NSString = "Not Started"
-    
-    var location: CLLocation!
-    
-    func locationManager(manager: CLLocationManager!,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-            var shouldIAllow = false
-            
-            switch status {
-            case CLAuthorizationStatus.Restricted:
-                locationStatus = "Restricted Access to location"
-            case CLAuthorizationStatus.Denied:
-                locationStatus = "User denied access to location"
-            case CLAuthorizationStatus.NotDetermined:
-                locationStatus = "Status not determined"
-            default:
-                locationStatus = "Allowed to location Access"
-                shouldIAllow = true
-            }
-            NSNotificationCenter.defaultCenter().postNotificationName("LabelHasbeenUpdated", object: nil)
-            if (shouldIAllow == true) {
-                NSLog("Location to Allowed")
-                // Start location services
-                locationManager.startUpdatingLocation()
-            } else {
-                NSLog("Denied access: \(locationStatus)")
-            }
-    }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        if (locationFixAchieved == false) {
-            locationFixAchieved = true
-            var locationArray = locations as NSArray
-            var locationObj = locationArray.lastObject as CLLocation
-            var coord = locationObj.coordinate
-            
-            println(coord.latitude)
-            println(coord.longitude)
-            
-            if (currentCentre == nil){
-                currentCentre = coord
-                PlacesDataSource.sharedInstance.queryGooglePlaces("cafe", currentCentre: currentCentre)
-            }
-            
-        }
-        
-    }
-    
-    // Location Manager helper stuff
-    func initLocationManager() {
-        seenError = false
-        locationFixAchieved = false
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        locationManager.requestAlwaysAuthorization()
 
-    }
-    
-    // Location Manager Delegate stuff
-    
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        locationManager.stopUpdatingLocation()
-        if ((error) != nil) {
-            if (seenError == false) {
-                seenError = true
-                print(error)
-            }
-        }
-    }
-    
     var queryFromButton: String?
     
     @IBAction func cafeButtonPressed(sender: UIBarButtonItem) {
-        PlacesDataSource.sharedInstance.queryGooglePlaces("cafe", currentCentre: currentCentre)
+        PlacesDataSource.sharedInstance.queryGooglePlaces("cafe")
     }
     
 
     @IBAction func restaurantButtonPressed(sender: UIBarButtonItem) {
-        PlacesDataSource.sharedInstance.queryGooglePlaces("restaurant", currentCentre: currentCentre)
+        PlacesDataSource.sharedInstance.queryGooglePlaces("restaurant")
     }
     
     @IBAction func barsButtonPressed(sender: UIBarButtonItem) {
-        PlacesDataSource.sharedInstance.queryGooglePlaces("bar", currentCentre: currentCentre)
+        PlacesDataSource.sharedInstance.queryGooglePlaces("bar")
     }
     
     @IBAction func atmButtonPressed(sender: UIBarButtonItem) {
-        PlacesDataSource.sharedInstance.queryGooglePlaces("atm", currentCentre: currentCentre)
+        PlacesDataSource.sharedInstance.queryGooglePlaces("atm")
     }
     
 }

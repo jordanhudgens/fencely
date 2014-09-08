@@ -27,12 +27,12 @@ class PlacesDataSource: NSObject {
     let kGOOGLE_API_KEY: String! = "AIzaSyAms5WELg7IHAGeU-X2AvqqRTjBjYG-tp0"
     let kBgQueue = "kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)"
     
-    func queryGooglePlaces(googleType:String!, currentCentre : CLLocationCoordinate2D!) {
+    func queryGooglePlaces(googleType:String!) {
         
         let manager = AFHTTPRequestOperationManager()
 
         var parameters = ["types": googleType,
-                            "location": "\(currentCentre.latitude),\(currentCentre.longitude)",
+                            "location": "\(LocationManager.sharedInstance.currentCentre.latitude),\(LocationManager.sharedInstance.currentCentre.longitude)",
                             "rankby": "distance",
                             "sensor": "true",
                             "key":kGOOGLE_API_KEY]
@@ -57,7 +57,7 @@ class PlacesDataSource: NSObject {
         
         var placesArray : NSMutableArray = responseData["results"] as NSMutableArray
         
-        
+        places.removeAllObjects()
         
         for placeDictionary in placesArray {
             var place = Place()

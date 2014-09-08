@@ -14,11 +14,6 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     // MARK: MKMapView
     var window: UIWindow?
-    var locationManager: CLLocationManager!
-    var seenError : Bool = false
-    var locationFixAchieved : Bool = false
-    var locationStatus : NSString = "Not Started"
-    var currentCentre : CLLocationCoordinate2D!
     
     @IBOutlet var buttonOne: UIButton!
 
@@ -30,8 +25,7 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         // Explanation on notification center: http://stackoverflow.com/questions/24049020/nsnotificationcenter-addobserver-in-swift
         // Selector explanation: http://www.learnswift.io/blog/2014/6/11/using-nsnotificationcenter-in-swift
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "venuesUpdated:", name: "venues", object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "venuesUpdated", name: "venues", object: nil)        
         
         // Do any additional setup after loading the view, typically from a nib.
         PlacesDataSource.sharedInstance.addObserver(self, forKeyPath:"places", options: nil, context: nil)
@@ -39,24 +33,16 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         //Make this controller the delegate for the map view.
         self.mapView.delegate = self
         
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        if ((UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8.0){
-            locationManager.requestAlwaysAuthorization()
-        }
-        
-        locationManager.startUpdatingLocation()
-        
         mapView.showsUserLocation = true
         
-                
-        println("Location is: \(location)")
+        mapView.setUserTrackingMode(MKUserTrackingMode.None, animated: false)
+        
+        self.venuesUpdated()
+//        println("Location is: \(location)")
         
     }
     
-    func venuesUpdated(sender : NSMutableDictionary) {
+    func venuesUpdated() {
         for place in PlacesDataSource.sharedInstance.places {
             
             var tempPlace : Place = place as Place
@@ -78,6 +64,11 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             mapView.addAnnotation(initialAnnotation)
         }
         
+        
+        var region: MKCoordinateRegion
+        region = MKCoordinateRegionMakeWithDistance(LocationManager.sharedInstance.manager.location.coordinate, 1000, 1000)
+        
+        mapView.setRegion(region, animated:true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,7 +77,7 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
-        initLocationManager();
+        LocationManager.sharedInstance.initLocationManager();
         return true
     }
 
@@ -94,98 +85,37 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     // MARK: Map methods
     func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
         var region: MKCoordinateRegion
-        region = MKCoordinateRegionMakeWithDistance(locationManager.location.coordinate, 1000, 1000)
+        region = MKCoordinateRegionMakeWithDistance(LocationManager.sharedInstance.manager.location.coordinate, 1000, 1000)
         
-        mapView.setRegion(region, animated:true)
+//        mapView.setRegion(region, animated:true)
     }
     
-    // MARK: Location methods
-    var location: CLLocation!
-    
-    func locationManager(manager: CLLocationManager!,
-        didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-            var shouldIAllow = false
-            
-            switch status {
-            case CLAuthorizationStatus.Restricted:
-                locationStatus = "Restricted Access to location"
-            case CLAuthorizationStatus.Denied:
-                locationStatus = "User denied access to location"
-            case CLAuthorizationStatus.NotDetermined:
-                locationStatus = "Status not determined"
-            default:
-                locationStatus = "Allowed to location Access"
-                shouldIAllow = true
-            }
-            NSNotificationCenter.defaultCenter().postNotificationName("LabelHasbeenUpdated", object: nil)
-            if (shouldIAllow == true) {
-                NSLog("Location to Allowed")
-                // Start location services
-                locationManager.startUpdatingLocation()
-            } else {
-                NSLog("Denied access: \(locationStatus)")
-            }
-    }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        if (locationFixAchieved == false) {
-            locationFixAchieved = true
-            var locationArray = locations as NSArray
-            var locationObj = locationArray.lastObject as CLLocation
-            var coord = locationObj.coordinate
-            
-            println(coord.latitude)
-            println(coord.longitude)
 
-            var finder = PlacesDataSource()
-            
-            if (currentCentre == nil){
-                currentCentre = coord
-                finder.queryGooglePlaces("cafe", currentCentre: currentCentre)
-            }
-            
-            mapView.setCenterCoordinate(coord, animated: true)
-            
-            var latDelta:CLLocationDegrees = 0.025
-            var longDelta:CLLocationDegrees = 0.025
-            
-            var theSpan:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
-            
-            var theRegion:MKCoordinateRegion = MKCoordinateRegionMake(coord, theSpan)
-            
-            mapView.setRegion(theRegion, animated: true)
-            
-            var initialAnnotation = MKPointAnnotation()
-            
-            initialAnnotation.coordinate = coord
-            initialAnnotation.title = "Current Location"
-            
-            mapView.addAnnotation(initialAnnotation)
-        }
-        
+    
+    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!){
+        println("Hii")
+        return
     }
     
-    // Location Manager helper stuff
-    func initLocationManager() {
-        seenError = false
-        locationFixAchieved = false
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
-        locationManager.requestAlwaysAuthorization()
-    }
+    // MARK: MapView methods for placing location
     
-    // Location Manager Delegate stuff
+    func userUpdatedLocation() {
     
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        locationManager.stopUpdatingLocation()
-        if ((error) != nil) {
-            if (seenError == false) {
-                seenError = true
-                print(error)
-            }
-        }
+        var latDelta:CLLocationDegrees = 0.05
+        var longDelta:CLLocationDegrees = 0.05
+    
+        var theSpan:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
+    
+        var theRegion:MKCoordinateRegion = MKCoordinateRegionMake(LocationManager.sharedInstance.currentCentre, theSpan)
+    
+        mapView.setRegion(theRegion, animated: true)
+    
+        var initialAnnotation = MKPointAnnotation()
+    
+        initialAnnotation.coordinate = LocationManager.sharedInstance.currentCentre
+        initialAnnotation.title = "Current Location"
+    
+        mapView.addAnnotation(initialAnnotation)
     }
     
     
@@ -196,8 +126,8 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         buttonOne.titleLabel?.text = buttonOne.titleLabel?.text
         var finder = PlacesDataSource()
         
-        if (currentCentre != nil){
-            finder.queryGooglePlaces(buttonOne.titleLabel?.text, currentCentre: currentCentre)
+        if (LocationManager.sharedInstance.currentCentre != nil){
+            finder.queryGooglePlaces(buttonOne.titleLabel?.text)
         } else {
             let alert = UIAlertView()
             alert.title = "Location Error"
