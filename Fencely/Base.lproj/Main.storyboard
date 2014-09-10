@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
     <scenes>
@@ -34,45 +33,33 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="zBC-at-c1z"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iQr-d4-Ar2">
-                                <rect key="frame" x="5" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem title="Cafes" id="V2S-ed-4TN">
-                                        <connections>
-                                            <action selector="cafeButtonPressed:" destination="9pv-A4-QxB" id="AuC-Tc-sJS"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Restaurants" id="WPJ-Ik-XPx">
-                                        <connections>
-                                            <action selector="restaurantButtonPressed:" destination="9pv-A4-QxB" id="A29-rB-m46"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Bars" id="Z7k-fz-Gf9">
-                                        <connections>
-                                            <action selector="barsButtonPressed:" destination="9pv-A4-QxB" id="cn8-CK-4pV"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="ATMs" id="dwN-ZX-sGr">
-                                        <connections>
-                                            <action selector="atmButtonPressed:" destination="9pv-A4-QxB" id="9Sb-vZ-Zej"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Category" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-aZ-5It">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="MgQ-hh-TSA" id="MOK-vi-yhx"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="iQr-d4-Ar2" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="8qp-4k-ywN"/>
-                            <constraint firstItem="iQr-d4-Ar2" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="9hT-Pl-9vo"/>
-                            <constraint firstItem="iQr-d4-Ar2" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailing" id="GCv-eZ-Lr1"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="first" id="acW-dT-cKf"/>
                     <connections>
+                        <outlet property="searchBar" destination="B8t-aZ-5It" id="Juz-ac-ktE"/>
+                        <outlet property="searchDisplayController" destination="MgQ-hh-TSA" id="96f-a6-Y5o"/>
                         <outlet property="tableView" destination="xfZ-i7-Qsb" id="bM0-XI-ywj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="MgQ-hh-TSA">
+                    <connections>
+                        <outlet property="delegate" destination="9pv-A4-QxB" id="he4-Em-x9h"/>
+                        <outlet property="searchBar" destination="B8t-aZ-5It" id="dC2-be-zzc"/>
+                        <outlet property="searchContentsController" destination="9pv-A4-QxB" id="d0K-pW-aUB"/>
+                        <outlet property="searchResultsDataSource" destination="9pv-A4-QxB" id="XZP-xp-DFO"/>
+                        <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="gc9-vU-kBw"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="750" y="-293"/>
         </scene>
@@ -89,7 +76,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tUX-Tz-jdb">
-                                <rect key="frame" x="0.0" y="90" width="320" height="430"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="476"/>
                                 <connections>
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="tS2-Ws-Ram"/>
                                 </connections>
@@ -102,27 +89,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ely-g8-PEW">
-                                <rect key="frame" x="16" y="52" width="45" height="30"/>
-                                <state key="normal" title="Bar">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonOnePressed:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="SPx-Z6-6PC"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Za-ka-d1a">
-                                <rect key="frame" x="83" y="52" width="83" height="30"/>
-                                <state key="normal" title="Restaurants">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufg-Eo-Zzq">
-                                <rect key="frame" x="193" y="52" width="45" height="30"/>
-                                <state key="normal" title="Coffee">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -133,7 +99,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="second" id="cPa-gy-q4n"/>
                     <connections>
-                        <outlet property="buttonOne" destination="Ely-g8-PEW" id="HVf-NX-Bos"/>
                         <outlet property="mapView" destination="tUX-Tz-jdb" id="vnc-ve-kip"/>
                     </connections>
                 </viewController>

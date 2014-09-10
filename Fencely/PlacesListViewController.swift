@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class PlacesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
+class PlacesListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UISearchBarDelegate {
     
     @IBOutlet var tableView: UITableView!
     
@@ -32,6 +32,8 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
+        
+        searchBar.delegate = self
     }
     
     func venuesUpdated(sender : AnyObject) {
@@ -72,6 +74,26 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         UIApplication.sharedApplication().openURL(url)
         
     }
+    
+    @IBOutlet var searchBar: UISearchBar!
+    
+    var listOfTypes : NSArray = ["Cafe", "Restaurant", "Bar"]
+    var searchResults : NSArray?
+    
+    func filterContentForSearchText(searchText: NSString, scope: NSString) {
+        var resultPredicate : NSPredicate
+        
+        searchResults = listOfTypes.filteredArrayUsingPredicate(resultPredicate.predicateFormat("name contains[\(searchText)]")) as NSArray
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if (!searchText.isEmpty) {
+            for genre in listOfTypes {
+                println(genre)
+            }
+        }
+    }
+    
 
     var queryFromButton: String?
     
