@@ -44,20 +44,40 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         super.didReceiveMemoryWarning()
     }
     
+    //MARK: Table delegate methods
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("number of rows \(PlacesDataSource.sharedInstance.places.count)")
-        return PlacesDataSource.sharedInstance.places.count
+        
+        if !self.isFiltered {
+            println("number of rows \(PlacesDataSource.sharedInstance.places.count)")
+            return PlacesDataSource.sharedInstance.places.count
+        } else {
+            
+            return self.filteredResults.count
+        }
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var rowData: Place = PlacesDataSource.sharedInstance.places[indexPath.row] as Place
-        
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "cell")
         
-        cell.textLabel?.text = rowData.name as String
-        cell.detailTextLabel?.text = rowData.address as String
-        cell.detailTextLabel?.textColor = UIColor.brownColor()
+        if !self.isFiltered {
+            var rowData: Place = PlacesDataSource.sharedInstance.places[indexPath.row] as Place
+            
+            
+            cell.textLabel?.text = rowData.name as String
+            cell.detailTextLabel?.text = rowData.address as String
+            cell.detailTextLabel?.textColor = UIColor.brownColor()
+        } else {
+            var genre: String = self.filteredResults[indexPath.row] as String
+            
+            cell.textLabel?.text = genre as String
+            cell.detailTextLabel?.text = "" as String
+            cell.detailTextLabel?.textColor = UIColor.brownColor()
+        }
+        
+        
 
         return cell
     }
@@ -75,23 +95,48 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    
     @IBOutlet var searchBar: UISearchBar!
     
     var listOfTypes : NSArray = ["Cafe", "Restaurant", "Bar"]
-    var searchResults : NSArray?
-    
-    func filterContentForSearchText(searchText: NSString, scope: NSString) {
-        var resultPredicate : NSPredicate
-        
-        searchResults = listOfTypes.filteredArrayUsingPredicate(resultPredicate.predicateFormat("name contains[\(searchText)]")) as NSArray
-    }
+    var filteredResults : NSMutableArray = NSMutableArray()
+    var isFiltered : Bool = false
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        if (!searchText.isEmpty) {
+        if (searchText.isEmpty)
+        {
+            filteredResults = listOfTypes.mutableCopy() as NSMutableArray
+        } else {
+            isFiltered = true
+            filteredResults.removeAllObjects()
             for genre in listOfTypes {
-                println(genre)
+                genre as String
+                var typeRange : NSRange = genre.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+                if typeRange.location != NSNotFound {
+                    filteredResults.addObject(genre)
+                }
             }
+            
         }
+        
+        self.tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        isFiltered = true
+        
+        if (searchBar.text.isEmpty)
+            {
+                filteredResults = listOfTypes.mutableCopy() as NSMutableArray
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        isFiltered = false
+        
+        self.tableView.reloadData()
     }
     
 

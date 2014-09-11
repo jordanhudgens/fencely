@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--List-->
@@ -33,19 +34,16 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="zBC-at-c1z"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Category" translatesAutoresizingMaskIntoConstraints="NO" id="B8t-aZ-5It">
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6uU-4f-tIE">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="MgQ-hh-TSA" id="MOK-vi-yhx"/>
-                                </connections>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="first" id="acW-dT-cKf"/>
                     <connections>
-                        <outlet property="searchBar" destination="B8t-aZ-5It" id="Juz-ac-ktE"/>
+                        <outlet property="searchBar" destination="6uU-4f-tIE" id="JmV-xm-Gyx"/>
                         <outlet property="searchDisplayController" destination="MgQ-hh-TSA" id="96f-a6-Y5o"/>
                         <outlet property="tableView" destination="xfZ-i7-Qsb" id="bM0-XI-ywj"/>
                     </connections>
@@ -54,7 +52,6 @@
                 <searchDisplayController id="MgQ-hh-TSA">
                     <connections>
                         <outlet property="delegate" destination="9pv-A4-QxB" id="he4-Em-x9h"/>
-                        <outlet property="searchBar" destination="B8t-aZ-5It" id="dC2-be-zzc"/>
                         <outlet property="searchContentsController" destination="9pv-A4-QxB" id="d0K-pW-aUB"/>
                         <outlet property="searchResultsDataSource" destination="9pv-A4-QxB" id="XZP-xp-DFO"/>
                         <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="gc9-vU-kBw"/>
@@ -112,10 +109,7 @@
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
-                        <size key="portraitSize" width="320" height="568"/>
-                        <size key="landscapeSize" width="568" height="320"/>
-                    </simulatedScreenMetrics>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
