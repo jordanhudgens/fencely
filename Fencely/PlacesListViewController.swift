@@ -15,9 +15,12 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var tableData = []
     
+    var listOfTypes : NSMutableArray = ["aquarium"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Explanation on notification center: http://stackoverflow.com/questions/24049020/nsnotificationcenter-addobserver-in-swift
         // Selector explanation: http://www.learnswift.io/blog/2014/6/11/using-nsnotificationcenter-in-swift
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "venuesUpdated:", name: "venues", object: nil)
@@ -106,6 +109,11 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     var isFiltered : Bool = false
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        
+        
+        
+        
         if (searchText.isEmpty)
         {
             filteredResults = listOfTypes.mutableCopy() as NSMutableArray
@@ -127,6 +135,50 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         isFiltered = true
+        
+        listOfTypes.addObject("atm")
+        listOfTypes.addObject("bakery")
+        listOfTypes.addObject("bank")
+        listOfTypes.addObject("bar")
+        listOfTypes.addObject("cafe")
+        listOfTypes.addObject("campground")
+        listOfTypes.addObject("casino")
+        listOfTypes.addObject("cemetery")
+        listOfTypes.addObject("church")
+        listOfTypes.addObject("courthouse")
+        listOfTypes.addObject("dentist")
+        listOfTypes.addObject("doctor")
+        listOfTypes.addObject("electrician")
+        listOfTypes.addObject("museum")
+        listOfTypes.addObject("painter")
+        listOfTypes.addObject("park")
+        listOfTypes.addObject("parking")
+        listOfTypes.addObject("pharmacy")
+        listOfTypes.addObject("physiotherapist")
+        listOfTypes.addObject("plumber")
+        listOfTypes.addObject("police")
+        listOfTypes.addObject("restaurant")
+        listOfTypes.addObject("school")
+        listOfTypes.addObject("spa")
+        listOfTypes.addObject("stadium")
+        listOfTypes.addObject("storage")
+        listOfTypes.addObject("store")
+        listOfTypes.addObject("synagogue")
+        listOfTypes.addObject("university")
+        listOfTypes.addObject("zoo")
+        listOfTypes.addObject("embassy")
+        listOfTypes.addObject("establishment")
+        listOfTypes.addObject("finance")
+        listOfTypes.addObject("florist")
+        listOfTypes.addObject("food")
+        listOfTypes.addObject("gym")
+        listOfTypes.addObject("health")
+        listOfTypes.addObject("hospital")
+        listOfTypes.addObject("laundry")
+        listOfTypes.addObject("lawyer")
+        listOfTypes.addObject("library")
+        listOfTypes.addObject("locksmith")
+        listOfTypes.addObject("lodging")
         
         if (searchBar.text.isEmpty)
             {

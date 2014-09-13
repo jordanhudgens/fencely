@@ -112,7 +112,6 @@
 				84E9EBC019AFAA3600C97BEC /* Fencely-Bridging-Header.h */,
 				84F30F6019BA5424008A38A8 /* Place.swift */,
 				8438DD4119BE2F81006CBF3D /* LocationManager.swift */,
-				84C440DB19C3CBB800DE08E1 /* listOfTypes.txt */,
 				84C440DC19C3CBB800DE08E1 /* TemplateIcon2x.png */,
 			);
 			path = Fencely;
@@ -121,6 +120,7 @@
 		8419B63D1993E35200087119 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84C440DB19C3CBB800DE08E1 /* listOfTypes.txt */,
 				8419B63E1993E35200087119 /* Info.plist */,
 			);
 			name = "Supporting Files";
