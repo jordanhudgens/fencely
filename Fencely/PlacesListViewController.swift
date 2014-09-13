@@ -15,7 +15,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     var tableData = []
     
-    var listOfTypes : NSMutableArray = ["aquarium"]
+    var listOfTypes : NSMutableArray = []
     
     
     override func viewDidLoad() {
@@ -86,34 +86,36 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        var rowData: Place = PlacesDataSource.sharedInstance.places[indexPath.row] as Place
+        if (listOfTypes.count > 0) {
+            
+            PlacesDataSource.sharedInstance.queryGooglePlaces(listOfTypes[indexPath.row] as String)
+            listOfTypes.removeAllObjects()
+            isFiltered = false
+            self.resignFirstResponder()
+            self.tableView.reloadData()
+        } else {
+            var rowData: Place = PlacesDataSource.sharedInstance.places[indexPath.row] as Place
+            
+            var spacelessString : NSString = rowData.address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+            
+            var mapUrl : NSString = "http://maps.apple.com/maps?daddr=\(spacelessString)"
+            
+            var url : NSURL = NSURL(string: mapUrl)
+            
+            UIApplication.sharedApplication().openURL(url)
+        }
         
-        var spacelessString : NSString = rowData.address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        
-        var mapUrl : NSString = "http://maps.apple.com/maps?daddr=\(spacelessString)"
-        
-        var url : NSURL = NSURL(string: mapUrl)
-        
-        UIApplication.sharedApplication().openURL(url)
         
     }
     
     
     @IBOutlet var searchBar: UISearchBar!
     
-    
-
-
-    
     var filteredResults : NSMutableArray = NSMutableArray()
     var isFiltered : Bool = false
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        
-        
-        
-        
+
         if (searchText.isEmpty)
         {
             filteredResults = listOfTypes.mutableCopy() as NSMutableArray
@@ -136,6 +138,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         isFiltered = true
         
+        listOfTypes.addObject("aquarium")
         listOfTypes.addObject("atm")
         listOfTypes.addObject("bakery")
         listOfTypes.addObject("bank")
