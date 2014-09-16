@@ -65,10 +65,8 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         }
         
         
-        var region: MKCoordinateRegion
-        region = MKCoordinateRegionMakeWithDistance(LocationManager.sharedInstance.manager.location.coordinate, 1000, 1000)
+        self.mapView.showAnnotations(self.mapView.annotations, animated: true)
         
-        mapView.setRegion(region, animated:true)
     }
 
     override func didReceiveMemoryWarning() {

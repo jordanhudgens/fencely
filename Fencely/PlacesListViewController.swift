@@ -87,13 +87,20 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         if (listOfTypes.count > 0) {
+
+            if (self.isFiltered) {
+                PlacesDataSource.sharedInstance.queryGooglePlaces(filteredResults[indexPath.row] as String)
+            } else {
+                PlacesDataSource.sharedInstance.queryGooglePlaces(listOfTypes[indexPath.row] as String)
+            }
             
-            PlacesDataSource.sharedInstance.queryGooglePlaces(listOfTypes[indexPath.row] as String)
             listOfTypes.removeAllObjects()
             isFiltered = false
-            self.resignFirstResponder()
+            self.searchBar.resignFirstResponder()
             self.tableView.reloadData()
         } else {
+            
+            self.searchBar.resignFirstResponder()
             var rowData: Place = PlacesDataSource.sharedInstance.places[indexPath.row] as Place
             
             var spacelessString : NSString = rowData.address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
