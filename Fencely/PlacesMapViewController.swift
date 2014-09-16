@@ -43,6 +43,8 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     }
     
     func venuesUpdated() {
+        
+        mapView.removeAnnotations(self.mapView.annotations)
         for place in PlacesDataSource.sharedInstance.places {
             
             var tempPlace : Place = place as Place
@@ -64,8 +66,15 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
             mapView.addAnnotation(initialAnnotation)
         }
         
+        self.mapView.annotations
+
+        var myLocationAnnotation = MKPointAnnotation()
         
+        myLocationAnnotation.coordinate = LocationManager.sharedInstance.currentCentre
+        
+        self.mapView.addAnnotation(myLocationAnnotation)
         self.mapView.showAnnotations(self.mapView.annotations, animated: true)
+        self.mapView.removeAnnotation(myLocationAnnotation)
         
     }
 
