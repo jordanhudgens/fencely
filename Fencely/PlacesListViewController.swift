@@ -37,7 +37,10 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
         
         searchBar.delegate = self
-        self.tabBarItem.image = UIImage(named: "f-search-reg.png").imageScaledToFitSize(CGSizeMake(40, 40))
+        self.tabBarItem.image = UIImage(named: "f-search-reg.png").imageScaledToFitSize(CGSizeMake(35, 35))
+        
+        var pmvc : PlacesMapViewController = self.tabBarController?.viewControllers![1] as PlacesMapViewController
+        pmvc.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "f-map-reg.png").imageScaledToFitSize(CGSizeMake(35,35)).imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), selectedImage: UIImage(named: "f-map-reg.png").imageScaledToFitSize(CGSizeMake(35, 35)))
     }
     
     func venuesUpdated(sender : AnyObject) {

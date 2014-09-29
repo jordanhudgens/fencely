@@ -39,10 +39,9 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         
         self.venuesUpdated()
 
-        self.tabBarItem.image = UIImage(named: "f-map-reg.png").imageScaledToFitSize(CGSizeMake(40, 40))
         
-//        UITabBarItem(title: <#String?#>, image: <#UIImage?#>, tag: <#Int#>)
-//        self.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "f-map-reg.png").imageScaledToFitSize(CGSizeMake(40, 40)).imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), tag: 79)
+
+        
     }
     
     func venuesUpdated() {
