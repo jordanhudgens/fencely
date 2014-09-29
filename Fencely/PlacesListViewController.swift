@@ -37,6 +37,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: "cell")
         
         searchBar.delegate = self
+        self.tabBarItem.image = UIImage(named: "f-search-reg.png").imageScaledToFitSize(CGSizeMake(40, 40))
     }
     
     func venuesUpdated(sender : AnyObject) {

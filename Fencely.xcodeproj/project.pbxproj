@@ -15,6 +15,8 @@
 		8419B6491993E35200087119 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8419B6481993E35200087119 /* Images.xcassets */; };
 		8419B6551993E35200087119 /* FencelyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8419B6541993E35200087119 /* FencelyTests.swift */; };
 		8438DD4219BE2F81006CBF3D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438DD4119BE2F81006CBF3D /* LocationManager.swift */; };
+		847F013B19D777AC00722F8B /* map-small-r.png in Resources */ = {isa = PBXBuildFile; fileRef = 847F013919D777AC00722F8B /* map-small-r.png */; };
+		847F013C19D777AC00722F8B /* map-small-s.png in Resources */ = {isa = PBXBuildFile; fileRef = 847F013A19D777AC00722F8B /* map-small-s.png */; };
 		849F76DD19AE5FBE00FF673F /* PlacesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849F76DC19AE5FBE00FF673F /* PlacesDataSource.swift */; };
 		84B236BB19D6705700A0E5A6 /* fencely-map.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B236B919D6705700A0E5A6 /* fencely-map.png */; };
 		84B236BC19D6705700A0E5A6 /* fencely-search.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B236BA19D6705700A0E5A6 /* fencely-search.png */; };
@@ -26,6 +28,7 @@
 		84B7E05C1996D1C800BE216E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B7E05B1996D1C800BE216E /* CoreLocation.framework */; };
 		84C440DD19C3CBB800DE08E1 /* listOfTypes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84C440DB19C3CBB800DE08E1 /* listOfTypes.txt */; };
 		84C440DE19C3CBB800DE08E1 /* TemplateIcon2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C440DC19C3CBB800DE08E1 /* TemplateIcon2x.png */; };
+		84F26F6C19D9E4E5000BECCE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F26F6B19D9E4E5000BECCE /* TabBarViewController.swift */; };
 		84F30F6119BA5424008A38A8 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F30F6019BA5424008A38A8 /* Place.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		502318D98CA549C5A84BAFA0 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		75FAF71A301309ED1126BD97 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8419B63A1993E35200087119 /* Fencely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fencely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8419B63E1993E35200087119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8419B63F1993E35200087119 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +55,8 @@
 		8419B6531993E35200087119 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8419B6541993E35200087119 /* FencelyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FencelyTests.swift; sourceTree = "<group>"; };
 		8438DD4119BE2F81006CBF3D /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		847F013919D777AC00722F8B /* map-small-r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-small-r.png"; sourceTree = "<group>"; };
+		847F013A19D777AC00722F8B /* map-small-s.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-small-s.png"; sourceTree = "<group>"; };
 		849F76DC19AE5FBE00FF673F /* PlacesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesDataSource.swift; sourceTree = "<group>"; };
 		84B236B919D6705700A0E5A6 /* fencely-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fencely-map.png"; sourceTree = "<group>"; };
 		84B236BA19D6705700A0E5A6 /* fencely-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fencely-search.png"; sourceTree = "<group>"; };
@@ -64,8 +69,10 @@
 		84C440DB19C3CBB800DE08E1 /* listOfTypes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = listOfTypes.txt; sourceTree = "<group>"; };
 		84C440DC19C3CBB800DE08E1 /* TemplateIcon2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TemplateIcon2x.png; sourceTree = "<group>"; };
 		84E9EBC019AFAA3600C97BEC /* Fencely-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fencely-Bridging-Header.h"; sourceTree = "<group>"; };
+		84F26F6B19D9E4E5000BECCE /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		84F30F6019BA5424008A38A8 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		AC6A7632071C4DC388189918 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9833B9BF926BAD68AFAB42C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +96,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		827A502A3A19D02577D162E5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				75FAF71A301309ED1126BD97 /* Pods.debug.xcconfig */,
+				F9833B9BF926BAD68AFAB42C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8419B6311993E35200087119 = {
 			isa = PBXGroup;
 			children = (
@@ -97,8 +113,8 @@
 				8419B63C1993E35200087119 /* Fencely */,
 				8419B6511993E35200087119 /* FencelyTests */,
 				8419B63B1993E35200087119 /* Products */,
-				502318D98CA549C5A84BAFA0 /* Pods.xcconfig */,
 				E06915A1E88844F686990D0E /* Frameworks */,
+				827A502A3A19D02577D162E5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -125,6 +141,7 @@
 				84F30F6019BA5424008A38A8 /* Place.swift */,
 				8438DD4119BE2F81006CBF3D /* LocationManager.swift */,
 				84C440DC19C3CBB800DE08E1 /* TemplateIcon2x.png */,
+				84F26F6B19D9E4E5000BECCE /* TabBarViewController.swift */,
 			);
 			path = Fencely;
 			sourceTree = "<group>";
@@ -132,6 +149,8 @@
 		8419B63D1993E35200087119 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				847F013919D777AC00722F8B /* map-small-r.png */,
+				847F013A19D777AC00722F8B /* map-small-s.png */,
 				84B236BD19D6737900A0E5A6 /* f-map-reg.png */,
 				84B236BE19D6737900A0E5A6 /* f-map-s.png */,
 				84B236BF19D6737900A0E5A6 /* f-search-reg.png */,
@@ -260,6 +279,8 @@
 				84B236C419D6737900A0E5A6 /* f-search-s.png in Resources */,
 				84B236C319D6737900A0E5A6 /* f-search-reg.png in Resources */,
 				8419B6491993E35200087119 /* Images.xcassets in Resources */,
+				847F013B19D777AC00722F8B /* map-small-r.png in Resources */,
+				847F013C19D777AC00722F8B /* map-small-s.png in Resources */,
 				84B236C219D6737900A0E5A6 /* f-map-s.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,7 +307,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		847E77D50A3D46E292EFD783 /* Check Pods Manifest.lock */ = {
@@ -315,6 +336,7 @@
 				8419B6441993E35200087119 /* PlacesMapViewController.swift in Sources */,
 				8438DD4219BE2F81006CBF3D /* LocationManager.swift in Sources */,
 				8419B6401993E35200087119 /* AppDelegate.swift in Sources */,
+				84F26F6C19D9E4E5000BECCE /* TabBarViewController.swift in Sources */,
 				8419B6421993E35200087119 /* PlacesListViewController.swift in Sources */,
 				84F30F6119BA5424008A38A8 /* Place.swift in Sources */,
 			);
@@ -429,7 +451,7 @@
 		};
 		8419B6591993E35200087119 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 502318D98CA549C5A84BAFA0 /* Pods.xcconfig */;
+			baseConfigurationReference = 75FAF71A301309ED1126BD97 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -443,7 +465,7 @@
 		};
 		8419B65A1993E35200087119 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 502318D98CA549C5A84BAFA0 /* Pods.xcconfig */;
+			baseConfigurationReference = F9833B9BF926BAD68AFAB42C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

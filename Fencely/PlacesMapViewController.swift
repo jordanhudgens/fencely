@@ -38,8 +38,11 @@ class PlacesMapViewController: UIViewController, MKMapViewDelegate, CLLocationMa
         mapView.setUserTrackingMode(MKUserTrackingMode.None, animated: false)
         
         self.venuesUpdated()
-//        println("Location is: \(location)")
+
+        self.tabBarItem.image = UIImage(named: "f-map-reg.png").imageScaledToFitSize(CGSizeMake(40, 40))
         
+//        UITabBarItem(title: <#String?#>, image: <#UIImage?#>, tag: <#Int#>)
+//        self.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "f-map-reg.png").imageScaledToFitSize(CGSizeMake(40, 40)).imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal), tag: 79)
     }
     
     func venuesUpdated() {

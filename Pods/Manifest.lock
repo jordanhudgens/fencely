@@ -20,14 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - MGImageUtilities (0.0.1)
   - UICKeyChainStore (1.0.5)
 
 DEPENDENCIES:
   - AFNetworking
+  - MGImageUtilities (~> 0.0)
   - UICKeyChainStore
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
+  MGImageUtilities: 2dd1872bfb5d241f894bfb78286b05bb74005ef6
   UICKeyChainStore: 4f9719600cc70025064e26f28f1210bcfc3b0c35
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.1

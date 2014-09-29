@@ -41,7 +41,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="f-search-reg.png" selectedImage="f-search-s.png" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="searchBar" destination="6uU-4f-tIE" id="JmV-xm-Gyx"/>
                         <outlet property="searchDisplayController" destination="MgQ-hh-TSA" id="96f-a6-Y5o"/>
@@ -94,7 +94,7 @@
                             <constraint firstItem="ej5-n5-O85" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="dYc-7R-70W"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" image="f-map-reg.png" selectedImage="f-map-s.png" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" id="cPa-gy-q4n"/>
                     <connections>
                         <outlet property="mapView" destination="tUX-Tz-jdb" id="vnc-ve-kip"/>
                     </connections>
@@ -125,10 +125,4 @@
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="f-map-reg.png" width="50" height="50"/>
-        <image name="f-map-s.png" width="50" height="50"/>
-        <image name="f-search-reg.png" width="50" height="50"/>
-        <image name="f-search-s.png" width="50" height="50"/>
-    </resources>
 </document>
