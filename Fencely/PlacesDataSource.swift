@@ -55,7 +55,12 @@ class PlacesDataSource: NSObject {
     func fetchedData(responseData:NSDictionary) {
         println(responseData)
         
-        var placesArray : NSMutableArray = responseData["results"] as NSMutableArray
+        
+        var placesArray : Array = []
+        
+        if (responseData["results"] != nil){
+            placesArray = responseData["results"] as Array
+        }
         
         places.removeAllObjects()
         
