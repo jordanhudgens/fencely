@@ -57,7 +57,9 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if !self.isFiltered {
             println("number of rows \(PlacesDataSource.sharedInstance.places.count)")
+
             return PlacesDataSource.sharedInstance.places.count
+            
         } else {
             
             return self.filteredResults.count
@@ -91,6 +93,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         if (listOfTypes.count > 0) {
+            self.searchBar.text = ""
 
             if (self.isFiltered) {
                 PlacesDataSource.sharedInstance.queryGooglePlaces(filteredResults[indexPath.row] as String)
@@ -144,6 +147,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
         self.tableView.reloadData()
+        
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -195,8 +199,8 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
         listOfTypes.addObject("lodging")
         
         if (searchBar.text.isEmpty)
-            {
-                filteredResults = listOfTypes.mutableCopy() as NSMutableArray
+        {
+            filteredResults = listOfTypes.mutableCopy() as NSMutableArray
         }
         
         self.tableView.reloadData()
@@ -211,22 +215,7 @@ class PlacesListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     var queryFromButton: String?
     
-    @IBAction func cafeButtonPressed(sender: UIBarButtonItem) {
-        PlacesDataSource.sharedInstance.queryGooglePlaces("cafe")
-    }
-    
 
-    @IBAction func restaurantButtonPressed(sender: UIBarButtonItem) {
-        PlacesDataSource.sharedInstance.queryGooglePlaces("restaurant")
-    }
-    
-    @IBAction func barsButtonPressed(sender: UIBarButtonItem) {
-        PlacesDataSource.sharedInstance.queryGooglePlaces("bar")
-    }
-    
-    @IBAction func atmButtonPressed(sender: UIBarButtonItem) {
-        PlacesDataSource.sharedInstance.queryGooglePlaces("atm")
-    }
     
 }
 
